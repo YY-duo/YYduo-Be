@@ -1,17 +1,17 @@
 package com.YYduo.KkuldongVarietyStore.domain.member.entity;
 
+import com.YYduo.KkuldongVarietyStore.domain.member.dto.MemberPatchDto;
 import com.YYduo.KkuldongVarietyStore.global.audit.Auditable;
 import lombok.*;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 @NoArgsConstructor
+@AllArgsConstructor
 @Getter
 @Setter
 public class Member extends Auditable {
@@ -28,6 +28,19 @@ public class Member extends Auditable {
 
     private String motto;
 
+    @Enumerated(EnumType.STRING)
+    private BloodType bloodType;
+
+    private LocalDateTime brithday;
+
     private Long avatar;
+
+    public enum BloodType {
+        A형,
+        B형,
+        O형,
+        AB형
+    }
+
 
 }

@@ -1,18 +1,13 @@
 package com.YYduo.KkuldongVarietyStore.domain.member.service;
 
-import com.YYduo.KkuldongVarietyStore.domain.member.dto.MemberPostDto;
-import com.YYduo.KkuldongVarietyStore.domain.member.dto.MemberResponseDto;
-import com.YYduo.KkuldongVarietyStore.domain.member.dto.PasswordPatchDto;
 import com.YYduo.KkuldongVarietyStore.domain.member.entity.Member;
 import com.YYduo.KkuldongVarietyStore.domain.member.repository.MemberRepository;
-import com.YYduo.exception.CustomException;
-import com.YYduo.exception.ExceptionCode;
+import com.YYduo.KkuldongVarietyStore.exception.CustomException;
+import com.YYduo.KkuldongVarietyStore.exception.ExceptionCode;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -21,7 +16,7 @@ import java.util.Optional;
 public class MemberService {
     private final MemberRepository memberRepository;
 
-    private final PasswordEncoder passwordEncoder;
+//    private final PasswordEncoder passwordEncoder;
 
 //    private final CustomAuthorityUtils authorityUtils;
 
@@ -32,6 +27,8 @@ public class MemberService {
     }
 
     private Member saveMember(Member member){
+//        member.setPassword(encryptedPassword(member.getPassword()));
+
         Member savedMember = memberRepository.save(member);
 
         return savedMember;
@@ -52,5 +49,14 @@ public class MemberService {
             throw new CustomException(ExceptionCode.NICKNAME_EXISTS);
         }
     }
+
+//    private String encryptedPassword(String password){
+//        return passwordEncoder.encode(password);
+//    }
+//    @Bean
+//    public static PasswordEncoder passwordEncoder(){ //static으로 순환참조 해결
+//        return PasswordEncoderFactories.createDelegatingPasswordEncoder();
+//    }
+
 
 }

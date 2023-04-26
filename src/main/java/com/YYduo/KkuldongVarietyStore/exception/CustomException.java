@@ -1,4 +1,4 @@
-package com.YYduo.exception;
+package com.YYduo.KkuldongVarietyStore.exception;
 
 import lombok.Getter;
 

@@ -45,8 +45,8 @@ public class MemberService {
                 .ifPresent(motto -> findMember.setMotto(motto));
         Optional.ofNullable(member.getBloodType())
                 .ifPresent(bloodType -> findMember.setBloodType(bloodType));
-        Optional.ofNullable(member.getBrithday())
-                .ifPresent(brithday -> findMember.setBrithday(brithday));
+        Optional.ofNullable(member.getBirthday())
+                .ifPresent(birthday -> findMember.setBirthday(birthday));
 
         return memberRepository.save(findMember);
 

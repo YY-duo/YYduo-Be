@@ -33,9 +33,16 @@ public class Member extends Auditable {
     @Enumerated(EnumType.STRING)
     private BloodType bloodType;
 
-    private LocalDate brithday;
+    private LocalDate birthday;
 
     private Long avatar;
+
+    private String instagram;
+
+    private String github;
+
+    private String twitter;
+
 
     public enum BloodType {
         A형,

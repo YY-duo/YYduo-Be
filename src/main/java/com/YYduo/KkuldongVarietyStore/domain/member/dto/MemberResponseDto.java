@@ -21,4 +21,10 @@ public class MemberResponseDto {
     private String motto;
 
     private Long avatar;
+
+    private String instagram;
+
+    private String github;
+
+    private String twitter;
 }

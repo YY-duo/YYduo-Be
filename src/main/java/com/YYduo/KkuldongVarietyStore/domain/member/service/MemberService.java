@@ -34,6 +34,24 @@ public class MemberService {
         return savedMember;
     }
 
+    public Member updateMember(Member member) {
+
+        Member findMember = findVerifiedMember(member.getId());
+        Optional.ofNullable(member.getEmail())
+                .ifPresent(email -> findMember.setMotto(email));
+        Optional.ofNullable(member.getNickname())
+                .ifPresent(nickname -> findMember.setNickname(nickname));
+        Optional.ofNullable(member.getMotto())
+                .ifPresent(motto -> findMember.setMotto(motto));
+        Optional.ofNullable(member.getBloodType())
+                .ifPresent(bloodType -> findMember.setBloodType(bloodType));
+        Optional.ofNullable(member.getBrithday())
+                .ifPresent(brithday -> findMember.setBrithday(brithday));
+
+        return memberRepository.save(findMember);
+
+    }
+
 
 
     public void verifyExistsEmail(String email) {
@@ -48,6 +66,14 @@ public class MemberService {
         if (member.isPresent()) {
             throw new CustomException(ExceptionCode.NICKNAME_EXISTS);
         }
+    }
+
+    public Member findVerifiedMember(Long memberId) {
+        Optional<Member> optionalMember = memberRepository.findById(memberId);
+        Member findMember =
+                optionalMember.orElseThrow(() ->
+                        new CustomException(ExceptionCode.MEMBER_NOT_FOUND));
+        return findMember;
     }
 
 //    private String encryptedPassword(String password){

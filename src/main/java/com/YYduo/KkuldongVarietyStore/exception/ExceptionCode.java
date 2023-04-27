@@ -5,6 +5,8 @@ import org.springframework.http.HttpStatus;
 
 public enum ExceptionCode {
 
+    MEMBER_NOT_FOUND(HttpStatus.NOT_FOUND, "회원 정보가 없습니다.", null),
+
     NICKNAME_EXISTS(HttpStatus.CONFLICT, "이미 존재하는 닉네임입니다.", "nickname"),
 
     MEMBER_EXISTS(HttpStatus.CONFLICT, "MEMBER_EXIST", "email");

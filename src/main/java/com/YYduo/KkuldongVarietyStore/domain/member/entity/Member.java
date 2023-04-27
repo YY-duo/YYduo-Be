@@ -7,13 +7,15 @@ import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 
 @Entity
-@NoArgsConstructor
-@AllArgsConstructor
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Member extends Auditable {
 
     @Id
@@ -31,7 +33,7 @@ public class Member extends Auditable {
     @Enumerated(EnumType.STRING)
     private BloodType bloodType;
 
-    private LocalDateTime brithday;
+    private LocalDate brithday;
 
     private Long avatar;
 

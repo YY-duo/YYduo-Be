@@ -1,7 +1,6 @@
 package com.YYduo.KkuldongVarietyStore.domain.member.controller;
 
-import com.YYduo.KkuldongVarietyStore.domain.member.dto.MemberPatchDto;
-import com.YYduo.KkuldongVarietyStore.domain.member.dto.MemberPostDto;
+import com.YYduo.KkuldongVarietyStore.domain.member.dto.*;
 import com.YYduo.KkuldongVarietyStore.domain.member.entity.Member;
 import com.YYduo.KkuldongVarietyStore.domain.member.mapper.MemberMapper;
 import com.YYduo.KkuldongVarietyStore.domain.member.repository.MemberRepository;
@@ -30,13 +29,22 @@ public class MemberController {
     private final MemberMapper memberMapper;
 
 
-
     @PostMapping("/signup")
     public ResponseEntity postMember(@Valid @RequestBody MemberPostDto requestBody) {
 
         Member member = memberService.createMember(memberMapper.memberPostDtoToMember(requestBody));
 
         return new ResponseEntity<>(new SingleResponseDto<>(memberMapper.memberToMemberResponseDto(member)), HttpStatus.CREATED);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getMember(@AuthenticationPrincipal Member auth,@PathVariable Long id) {
+
+//        Member member = memberService.findVerifiedMember(auth.getMemberId());
+
+        Member member =memberService.findVerifiedMember(id);
+
+        return new ResponseEntity<>(new SingleResponseDto<>(memberMapper.memberToMemberResponseDto(member)), HttpStatus.OK);
     }
 
     @PatchMapping(value = "/patch")
@@ -48,5 +56,81 @@ public class MemberController {
 
         return new ResponseEntity<>(new SingleResponseDto<>(memberMapper.memberToMemberResponseDto(member)), HttpStatus.OK);
     }
+
+    @PostMapping(value = "/github")
+    public ResponseEntity patchGithub(@AuthenticationPrincipal Member auth,
+                                      @Valid @RequestBody GithubPostDto requestBody) {
+//        requestBody.setId(auth.getId());
+
+
+        Member member = memberService.postGithub(memberMapper.memberGithubPostDtoToMember(requestBody));
+
+        return new ResponseEntity<>(new SingleResponseDto<>(memberMapper.memberToMemberResponseDto(member)), HttpStatus.OK);
+
+    }
+
+    @PostMapping(value = "/instagram")
+    public ResponseEntity patchInstagram(@AuthenticationPrincipal Member auth,
+                                         @Valid @RequestBody InstagramPostDto requestBody) {
+//        requestBody.setId(auth.getId());
+
+
+        Member member = memberService.postInstagram(memberMapper.memberInstagramPostDtoToMember(requestBody));
+
+        return new ResponseEntity<>(new SingleResponseDto<>(memberMapper.memberToMemberResponseDto(member)), HttpStatus.OK);
+
+
+    }
+
+    @PostMapping(value = "/twitter")
+    public ResponseEntity patchTwitter(@AuthenticationPrincipal Member auth,
+                                      @Valid @RequestBody TwitterPostDto requestBody) {
+//        requestBody.setId(auth.getId());
+
+
+        Member member = memberService.postTwittwer(memberMapper.memberTwitterPostDtoToMember(requestBody));
+
+        return new ResponseEntity<>(new SingleResponseDto<>(memberMapper.memberToMemberResponseDto(member)), HttpStatus.OK);
+
+    }
+
+    @PatchMapping("/instagram/{id}")
+    public ResponseEntity<?> disconnectInstagram(@AuthenticationPrincipal Member auth,@PathVariable Long id) {
+//        requestBody.setId(auth.getId());
+
+        memberService.disconnectInstagram(id);
+
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @PatchMapping("/github/{id}")
+    public ResponseEntity<?> disconnectGithub(@AuthenticationPrincipal Member auth,@PathVariable Long id) {
+//        requestBody.setId(auth.getId());
+
+        memberService.disconnectGithub(id);
+
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @PatchMapping("/twitter/{id}")
+    public ResponseEntity<?> disconnectTwitter(@AuthenticationPrincipal Member auth,@PathVariable Long id) {
+//        requestBody.setId(auth.getId());
+
+        memberService.disconnectTwitter(id);
+
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteMember(@AuthenticationPrincipal Member auth,@PathVariable Long id) {
+//        requestBody.setId(auth.getId());
+
+        memberService.deleteMember(id);
+
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+
 
 }

@@ -9,6 +9,8 @@ import lombok.Setter;
 @NoArgsConstructor
 public class TwitterPostDto {
 
+    private Long id;
+
     private String twitter;
 
 }

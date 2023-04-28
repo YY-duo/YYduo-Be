@@ -10,6 +10,8 @@ import lombok.Setter;
 @NoArgsConstructor
 public class InstagramPostDto {
 
+    private Long id;
+
     private String instagram;
 
 }

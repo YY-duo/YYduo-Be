@@ -53,6 +53,53 @@ public class MemberService {
     }
 
 
+    public void deleteMember(Long memberId) {
+        memberRepository.deleteById(memberId);
+    }
+
+    public void disconnectGithub(Long id) {
+        Member verifiedMember = findVerifiedMember(id);
+        verifiedMember.setGithub(null);
+        memberRepository.save(verifiedMember);
+    }
+
+    public void disconnectInstagram(Long id) {
+        Member verifiedMember = findVerifiedMember(id);
+        verifiedMember.setInstagram(null);
+        memberRepository.save(verifiedMember);
+    }
+    public void disconnectTwitter(Long id) {
+        Member verifiedMember = findVerifiedMember(id);
+        verifiedMember.setTwitter(null);
+        memberRepository.save(verifiedMember);
+    }
+
+
+    public Member postGithub(Member member) {
+        Member verifiedMember = findVerifiedMember(member.getId());
+        verifiedMember.setGithub(member.getGithub());
+
+        return verifiedMember;
+
+    }
+
+    public Member postInstagram(Member member) {
+        Member verifiedMember = findVerifiedMember(member.getId());
+        verifiedMember.setInstagram(member.getInstagram());
+
+        return verifiedMember;
+
+    }
+
+    public Member postTwittwer(Member member) {
+        Member verifiedMember = findVerifiedMember(member.getId());
+        verifiedMember.setTwitter(member.getTwitter());
+
+        return verifiedMember;
+
+    }
+
+
 
     public void verifyExistsEmail(String email) {
         Optional<Member> member = memberRepository.findByEmail(email);

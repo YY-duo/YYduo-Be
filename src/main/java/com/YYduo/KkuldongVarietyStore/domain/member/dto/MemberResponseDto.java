@@ -20,7 +20,7 @@ public class MemberResponseDto {
 
     private String motto;
 
-    private Long avatar;
+    private int avatar;
 
     private String instagram;
 

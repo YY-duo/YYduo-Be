@@ -35,7 +35,7 @@ public class Member extends Auditable {
 
     private LocalDate birthday;
 
-    private Long avatar;
+    private int avatar = 1;
 
     private String instagram;
 

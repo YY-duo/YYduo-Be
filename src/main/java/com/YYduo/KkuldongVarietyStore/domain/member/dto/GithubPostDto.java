@@ -9,6 +9,8 @@ import lombok.Setter;
 @NoArgsConstructor
 public class GithubPostDto {
 
+    private Long id;
+
     private String github;
 
 }

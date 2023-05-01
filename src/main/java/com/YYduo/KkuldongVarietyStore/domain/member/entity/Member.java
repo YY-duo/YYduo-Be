@@ -1,7 +1,9 @@
 package com.YYduo.KkuldongVarietyStore.domain.member.entity;
 
+import com.YYduo.KkuldongVarietyStore.domain.diary.entity.Diary;
 import com.YYduo.KkuldongVarietyStore.domain.member.dto.MemberPatchDto;
 import com.YYduo.KkuldongVarietyStore.global.audit.Auditable;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
@@ -10,6 +12,8 @@ import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -42,6 +46,11 @@ public class Member extends Auditable {
     private String github;
 
     private String twitter;
+
+    @OneToMany(mappedBy = "member")
+    @JsonManagedReference
+    private List<Diary> diaries = new ArrayList<>();
+
 
 
     public enum BloodType {

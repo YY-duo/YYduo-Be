@@ -16,8 +16,6 @@ import org.mapstruct.factory.Mappers;
 public interface CommentMapper {
     CommentMapper INSTANCE = Mappers.getMapper(CommentMapper.class);
 
-
-
     @Mapping(source = "member.nickname", target = "memberNickname")
     CommentResponseDto commentToCommentResponseDto(Comment comment);
 

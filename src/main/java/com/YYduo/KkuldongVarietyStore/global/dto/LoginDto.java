@@ -1,0 +1,9 @@
+package com.YYduo.KkuldongVarietyStore.global.dto;
+
+import lombok.Getter;
+
+@Getter
+public class LoginDto {
+    private String username;
+    private String password;
+}

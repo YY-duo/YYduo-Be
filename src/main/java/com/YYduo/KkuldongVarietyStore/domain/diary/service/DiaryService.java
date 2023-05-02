@@ -1,5 +1,8 @@
 package com.YYduo.KkuldongVarietyStore.domain.diary.service;
 
+import com.YYduo.KkuldongVarietyStore.domain.comment.dto.CommentResponseDto;
+import com.YYduo.KkuldongVarietyStore.domain.comment.entity.Comment;
+import com.YYduo.KkuldongVarietyStore.domain.comment.mapper.CommentMapper;
 import com.YYduo.KkuldongVarietyStore.domain.diary.dto.DiaryPatchDto;
 import com.YYduo.KkuldongVarietyStore.domain.diary.dto.DiaryPostDto;
 import com.YYduo.KkuldongVarietyStore.domain.diary.dto.DiaryResponseDto;
@@ -38,6 +41,7 @@ public class DiaryService {
     private final DiaryRepository diaryRepository;
     private final HashtagRepository hashtagRepository;
     private final DiaryMapper diaryMapper;
+    private final CommentMapper commentMapper;
     private final MemberRepository memberRepository;
     private final HashtagMapper hashtagMapper;
 
@@ -132,11 +136,21 @@ public Diary updateDiary(Long diaryId, DiaryPatchDto diaryPatchDto) {
 }
 
 //일기 단일조회
-    public Diary findDiaryById(Long diaryId) {
-        return diaryRepository.findById(diaryId)
-                .orElseThrow(() -> new CustomException(ExceptionCode.DIARY_NOT_FOUND));
-    }
+public DiaryResponseDto findDiaryById(Long diaryId) {
+    Diary diary = diaryRepository.findById(diaryId)
+            .orElseThrow(() -> new CustomException(ExceptionCode.DIARY_NOT_FOUND));
 
+    DiaryResponseDto diaryResponseDto = diaryMapper.diaryToDiaryResponseDto(diary);
+
+    List<Comment> comments = diary.getComments();
+    List<CommentResponseDto> commentResponseDtos = comments.stream()
+            .map(comment -> commentMapper.commentToCommentResponseDto(comment))
+            .collect(Collectors.toList());
+
+    diaryResponseDto.setComments(commentResponseDtos);
+
+    return diaryResponseDto;
+}
 
 //특정날짜 일기를 가져오는 서비스
     public List<Diary> findDiariesByDate(Long memberId, LocalDate date) {

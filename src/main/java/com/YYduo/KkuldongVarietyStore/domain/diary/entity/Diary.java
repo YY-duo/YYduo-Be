@@ -1,8 +1,12 @@
 package com.YYduo.KkuldongVarietyStore.domain.diary.entity;
 
+import com.YYduo.KkuldongVarietyStore.domain.comment.entity.Comment;
 import com.YYduo.KkuldongVarietyStore.domain.member.entity.Member;
 import com.YYduo.KkuldongVarietyStore.global.audit.Auditable;
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -43,6 +47,7 @@ public class Diary extends Auditable {
     @JoinTable(name = "diary_hashtag",
             joinColumns = @JoinColumn(name = "diary_id"),
             inverseJoinColumns = @JoinColumn(name = "hashtag_id"))
+    @JsonIgnore
     private List<Hashtag> hashtags = new ArrayList<>();
 
 //    @ManyToMany
@@ -55,8 +60,13 @@ public class Diary extends Auditable {
     @OneToMany(mappedBy = "diary")
     private List<DiaryImage> diaryImages = new ArrayList<>();
 
+    @OneToMany(mappedBy = "diary", cascade = CascadeType.ALL)
+    @JsonIgnore
+    private List<Comment> comments = new ArrayList<>();
+
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
-    @JsonBackReference
+    @JsonIgnore
     private Member member;
 }

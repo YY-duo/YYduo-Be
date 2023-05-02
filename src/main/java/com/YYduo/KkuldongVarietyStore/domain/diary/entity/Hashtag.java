@@ -1,6 +1,7 @@
 package com.YYduo.KkuldongVarietyStore.domain.diary.entity;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -26,6 +27,7 @@ public class Hashtag {
     private String name;
 
     @ManyToMany(mappedBy = "hashtags")
+    @JsonIgnore
     private List<Diary> diaries = new ArrayList<>();
 
 

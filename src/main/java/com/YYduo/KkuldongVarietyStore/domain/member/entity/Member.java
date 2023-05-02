@@ -1,8 +1,11 @@
 package com.YYduo.KkuldongVarietyStore.domain.member.entity;
 
+import com.YYduo.KkuldongVarietyStore.domain.comment.entity.Comment;
 import com.YYduo.KkuldongVarietyStore.domain.diary.entity.Diary;
 import com.YYduo.KkuldongVarietyStore.domain.member.dto.MemberPatchDto;
 import com.YYduo.KkuldongVarietyStore.global.audit.Auditable;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 import org.hibernate.annotations.DynamicInsert;
@@ -23,7 +26,7 @@ import java.util.List;
 public class Member extends Auditable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String email;
@@ -48,8 +51,13 @@ public class Member extends Auditable {
     private String twitter;
 
     @OneToMany(mappedBy = "member")
-    @JsonManagedReference
+    @JsonIgnore
     private List<Diary> diaries = new ArrayList<>();
+
+    @OneToMany(mappedBy = "diary", cascade = CascadeType.ALL)
+    @JsonIgnore
+    private List<Comment> comments = new ArrayList<>();
+
 
 
 

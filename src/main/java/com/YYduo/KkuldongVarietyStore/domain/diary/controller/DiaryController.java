@@ -66,8 +66,7 @@ public class DiaryController {
     //일기단일조회
     @GetMapping("/{diaryId}")
     public ResponseEntity<SingleResponseDto<DiaryResponseDto>> getDiaryById(@PathVariable @Positive Long diaryId) {
-        Diary diary = diaryService.findDiaryById(diaryId);
-        DiaryResponseDto diaryResponseDto = DiaryMapper.INSTANCE.diaryToDiaryResponseDto(diary);
+        DiaryResponseDto diaryResponseDto = diaryService.findDiaryById(diaryId);
         SingleResponseDto<DiaryResponseDto> singleResponseDto = new SingleResponseDto<>(diaryResponseDto);
         return new ResponseEntity<>(singleResponseDto, HttpStatus.OK);
     }

@@ -1,5 +1,7 @@
 package com.YYduo.KkuldongVarietyStore.domain.diary.dto;
 
+import com.YYduo.KkuldongVarietyStore.domain.comment.dto.CommentResponseDto;
+import com.YYduo.KkuldongVarietyStore.domain.comment.entity.Comment;
 import com.YYduo.KkuldongVarietyStore.domain.diary.entity.Hashtag;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -23,4 +25,5 @@ public class DiaryResponseDto {
     private String memberNickname;
     private List<Hashtag> hashtags;
     private List<String> imageUrls;
+    private List<CommentResponseDto> comments;
 }

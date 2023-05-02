@@ -4,6 +4,8 @@ import lombok.Getter;
 import org.springframework.http.HttpStatus;
 
 public enum ExceptionCode {
+
+    COMMENT_NOT_FOUND(HttpStatus.NOT_FOUND, "댓글 정보가 없습니다.", null),
     DIARY_NOT_FOUND(HttpStatus.NOT_FOUND, "일기 정보가 없습니다.", null),
 
     MEMBER_NOT_FOUND(HttpStatus.NOT_FOUND, "회원 정보가 없습니다.", null),

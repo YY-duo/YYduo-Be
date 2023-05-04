@@ -139,5 +139,14 @@ public class DiaryController {
     }
 
 
+    //일기 삭제
+    @DeleteMapping("/{diaryId}")
+    public ResponseEntity<Long> deleteDiary(@PathVariable @Positive Long diaryId) {
+        diaryService.deleteDiary(diaryId);
+        return new ResponseEntity<>(diaryId, HttpStatus.OK);
+    }
+
+
+
 
 }

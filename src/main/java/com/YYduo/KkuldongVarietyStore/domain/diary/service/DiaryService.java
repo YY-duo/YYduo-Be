@@ -195,6 +195,12 @@ public DiaryResponseDto findDiaryById(Long diaryId) {
         return new ArrayList<>(relatedDiaries);
     }
 
+    //일기 삭제
+    public void deleteDiary(Long diaryId) {
+        diaryRepository.deleteById(diaryId);
+    }
+
+
 
 
 

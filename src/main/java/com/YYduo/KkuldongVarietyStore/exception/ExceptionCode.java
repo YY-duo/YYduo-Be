@@ -5,6 +5,10 @@ import org.springframework.http.HttpStatus;
 
 public enum ExceptionCode {
 
+    REFRESH_TOKEN_EXPRIATION(HttpStatus.UNAUTHORIZED, "리프레시 토큰이 만료되었습니다. 로그인이 필요합니다.",null),
+
+    REFRESH_TOKEN_MISSMATCHED(HttpStatus.UNAUTHORIZED, "리프레시 토큰이 일치하지않습니다..",null),
+
     COMMENT_NOT_FOUND(HttpStatus.NOT_FOUND, "댓글 정보가 없습니다.", null),
     DIARY_NOT_FOUND(HttpStatus.NOT_FOUND, "일기 정보가 없습니다.", null),
 

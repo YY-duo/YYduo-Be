@@ -1,6 +1,9 @@
-package com.YYduo.KkuldongVarietyStore.security;
+package com.YYduo.KkuldongVarietyStore.security.filter;
 
 import com.YYduo.KkuldongVarietyStore.domain.member.entity.Member;
+import com.YYduo.KkuldongVarietyStore.security.details.PrincipalDetails;
+import com.YYduo.KkuldongVarietyStore.security.jwt.JwtTokenizer;
+import com.YYduo.KkuldongVarietyStore.security.utils.CustomAuthorityUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -50,11 +53,11 @@ public class JwtVerificationFilter extends OncePerRequestFilter {
 
     private void setAuthenticationToContext(Map<String, Object> claims){
 
-        String username = (String) claims.get("name");
-        Integer memberId = (Integer) claims.get("memberId");
+        String email = (String) claims.get("email");
+        Integer memberId = (Integer) claims.get("Id");
 
         Member member = new Member();
-        member.setEmail(username);
+        member.setEmail(email);
         member.setId(Long.valueOf(memberId));
 
         List<GrantedAuthority> authorities = authorityUtils.createAuthorities((List) claims.get("roles"));

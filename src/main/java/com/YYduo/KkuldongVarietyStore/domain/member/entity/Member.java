@@ -50,6 +50,9 @@ public class Member extends Auditable {
 
     private String twitter;
 
+    @ElementCollection(fetch = FetchType.EAGER)
+    private List<String> roles = new ArrayList<>();
+
     @OneToMany(mappedBy = "member")
     @JsonIgnore
     private List<Diary> diaries = new ArrayList<>();
@@ -57,6 +60,10 @@ public class Member extends Auditable {
     @OneToMany(mappedBy = "diary", cascade = CascadeType.ALL)
     @JsonIgnore
     private List<Comment> comments = new ArrayList<>();
+
+    @OneToOne(mappedBy = "member", cascade = CascadeType.ALL)
+    @JsonIgnore
+    private Refresh refreshToken;
 
 
 

@@ -4,8 +4,11 @@ import com.YYduo.KkuldongVarietyStore.domain.member.entity.Member;
 import com.YYduo.KkuldongVarietyStore.domain.member.entity.Refresh;
 import com.YYduo.KkuldongVarietyStore.domain.member.repository.MemberRepository;
 import com.YYduo.KkuldongVarietyStore.domain.member.repository.RefreshRepository;
+import com.YYduo.KkuldongVarietyStore.exception.CustomException;
+import com.YYduo.KkuldongVarietyStore.exception.ExceptionCode;
 import com.YYduo.KkuldongVarietyStore.security.dto.LoginDto;
 import com.YYduo.KkuldongVarietyStore.security.jwt.JwtTokenizer;
+import com.YYduo.KkuldongVarietyStore.security.utils.CookieUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
@@ -17,12 +20,15 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @Transactional
@@ -63,8 +69,13 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
             refreshRepository.save(refresh);
         }
 
+        // 액세스 토큰을 header에 저장
         response.setHeader("Authorization", "Bearer " + accessToken);
-        response.setHeader("Refresh", refreshToken);
+
+        // 리프레시 토큰을 HttpOnly 쿠키에 저장
+        String encodedRefreshToken = CookieUtil.base64UrlEncode(refreshToken);
+        Cookie refreshTokenCookie = CookieUtil.createHttpOnlyCookie("Refresh", encodedRefreshToken);
+        response.addCookie(refreshTokenCookie);
 
         this.getSuccessHandler().onAuthenticationSuccess(request, response, authResult);
     }

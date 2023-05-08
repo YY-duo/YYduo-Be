@@ -39,6 +39,7 @@ public class MemberController {
         return new ResponseEntity<>(new SingleResponseDto<>(memberMapper.memberToMemberResponseDto(member)), HttpStatus.CREATED);
     }
 
+    //다른 회원의 마이홈 접근
     @GetMapping("/{id}")
     public ResponseEntity<?> getMember(@AuthenticationPrincipal Member auth,@PathVariable Long id) {
 
@@ -48,6 +49,25 @@ public class MemberController {
 
         return new ResponseEntity<>(new SingleResponseDto<>(memberMapper.memberToMemberResponseDto(member)), HttpStatus.OK);
     }
+
+
+
+    //내 마이홈 접근
+    @GetMapping("/myhome/{id}")
+    public ResponseEntity<?> getMyhome(@AuthenticationPrincipal Member auth) {
+
+        Member member = memberService.findVerifiedMember(auth.getId());
+
+        return new ResponseEntity<>(new SingleResponseDto<>(memberMapper.memberToMemberResponseDto(member)), HttpStatus.OK);
+    }
+
+    @PatchMapping("/password")
+    public ResponseEntity<?> changePassword(@AuthenticationPrincipal Member auth,
+                                            @Valid @RequestBody PasswordPatchDto requestBody) {
+        memberService.changePassword(auth.getId(), requestBody);
+        return ResponseEntity.ok().build();
+    }
+
 
     @PatchMapping(value = "/patch")
     public ResponseEntity patchMember(@AuthenticationPrincipal Member auth,

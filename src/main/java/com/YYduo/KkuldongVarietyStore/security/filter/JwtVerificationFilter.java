@@ -47,14 +47,13 @@ public class JwtVerificationFilter extends OncePerRequestFilter {
         String jws = request.getHeader("Authorization").replace("Bearer ", "");
         String base64EncodedSecretKey = jwtTokenizer.encodeBase64SecretKey(jwtTokenizer.getSecretKey());
         Map<String, Object> claims = jwtTokenizer.getClaims(jws, base64EncodedSecretKey).getBody();
-
         return claims;
     }
 
     private void setAuthenticationToContext(Map<String, Object> claims){
 
         String email = (String) claims.get("email");
-        Integer memberId = (Integer) claims.get("Id");
+        Integer memberId = (Integer) claims.get("id");
 
         Member member = new Member();
         member.setEmail(email);
@@ -63,7 +62,13 @@ public class JwtVerificationFilter extends OncePerRequestFilter {
         List<GrantedAuthority> authorities = authorityUtils.createAuthorities((List) claims.get("roles"));
         Authentication authentication = new UsernamePasswordAuthenticationToken(member, null, authorities);
         SecurityContextHolder.getContext().setAuthentication(authentication);
+
+        System.out.println("Authentication: " + authentication.toString());
+
+
+
     }
+
 
 
 }

@@ -1,11 +1,13 @@
 package com.YYduo.KkuldongVarietyStore.domain.member.service;
 
+import com.YYduo.KkuldongVarietyStore.domain.member.dto.PasswordPatchDto;
 import com.YYduo.KkuldongVarietyStore.domain.member.entity.Member;
 import com.YYduo.KkuldongVarietyStore.domain.member.repository.MemberRepository;
 import com.YYduo.KkuldongVarietyStore.exception.CustomException;
 import com.YYduo.KkuldongVarietyStore.exception.ExceptionCode;
 import com.YYduo.KkuldongVarietyStore.security.utils.CustomAuthorityUtils;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -41,6 +43,27 @@ public class MemberService {
 
         return savedMember;
     }
+
+    public void changePassword(Long memberId, PasswordPatchDto passwordPatchDto) {
+        // 사용자 인증
+        Member member = findVerifiedMember(memberId);
+        if (!passwordEncoder.matches(passwordPatchDto.getOldPassword(), member.getPassword())) {
+            throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
+        }
+
+        // 비밀번호 확인
+        if (!passwordPatchDto.getPassword().equals(passwordPatchDto.getPasswordConfirm())) {
+            throw new IllegalArgumentException("새 비밀번호와 비밀번호 확인이 일치하지 않습니다.");
+        }
+
+        // 비밀번호 암호화 및 저장
+        String encodedPassword = passwordEncoder.encode(passwordPatchDto.getPassword());
+        member.setPassword(encodedPassword);
+        memberRepository.save(member);
+    }
+
+
+
 
 
     public Member updateMember(Member member) {

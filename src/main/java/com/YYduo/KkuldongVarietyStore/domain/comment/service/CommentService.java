@@ -15,6 +15,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.Optional;
+
 @Service
 @Transactional
 @RequiredArgsConstructor
@@ -57,6 +59,15 @@ public class CommentService {
         commentRepository.delete(comment);
     }
 
+    public Comment findComment(long commentId) {
+        return findVerifiedComment(commentId);
+    }
+
+    private Comment findVerifiedComment(long commentId){
+        Optional<Comment> optionalComment = commentRepository.findById(commentId);
+
+        return optionalComment.orElseThrow(() -> new CustomException(ExceptionCode.COMMENT_NOT_FOUND));
+    }
     public Comment findCommentById(Long commentId) {
         return commentRepository.findById(commentId)
                 .orElseThrow(() -> new CustomException(ExceptionCode.COMMENT_NOT_FOUND));

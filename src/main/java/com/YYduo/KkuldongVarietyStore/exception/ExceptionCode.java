@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 
 public enum ExceptionCode {
 
+
     NULL_INPUT_REDIRECT_URL(HttpStatus.BAD_REQUEST, "300", "리다이렉트 주소가 존재하지 않습니다."),
 
     REFRESH_TOKEN_EXPRIATION(HttpStatus.UNAUTHORIZED, "리프레시 토큰이 만료되었습니다. 로그인이 필요합니다.",null),

@@ -166,6 +166,14 @@ public DiaryResponseDto findDiaryById(Long diaryId) {
                 searchTerm, searchTerm, searchTerm);
     }
 
+    public Diary findVerifiedDiary(Long diaryId) {
+        Optional<Diary> optionalDiary =
+                diaryRepository.findById(diaryId);
+
+        return optionalDiary.orElseThrow(() ->
+                new CustomException(ExceptionCode.DIARY_NOT_FOUND));
+    }
+
 
 
     @Transactional(readOnly = true)

@@ -56,9 +56,12 @@ public class Diary extends Auditable {
 //            inverseJoinColumns = @JoinColumn(name = "related_diary_id"))
 //    private List<Diary> relatedDiaries = new ArrayList<>();
 
+    @ElementCollection
+    @CollectionTable(name = "diary_image_urls", joinColumns = @JoinColumn(name = "diary_id"))
+    @Column(name = "image_url")
+    private List<String> imageUrls = new ArrayList<>();
 
-    @OneToMany(mappedBy = "diary")
-    private List<DiaryImage> diaryImages = new ArrayList<>();
+
 
     @OneToMany(mappedBy = "diary", cascade = CascadeType.ALL)
     @JsonIgnore

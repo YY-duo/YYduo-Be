@@ -24,6 +24,6 @@ public class DiaryPostDto {
     @NotBlank(message = "내용은 필수로 작성해야 합니다.")
     private String content;
     private List<Hashtag> hashtags;
-    private List<MultipartFile> images;
+    private List<String> imageUrls;
 
 }

@@ -7,18 +7,15 @@ import com.YYduo.KkuldongVarietyStore.domain.diary.entity.Diary;
 import com.YYduo.KkuldongVarietyStore.domain.diary.mapper.DiaryMapper;
 import com.YYduo.KkuldongVarietyStore.domain.diary.repository.DiaryRepository;
 import com.YYduo.KkuldongVarietyStore.domain.diary.service.DiaryService;
+import com.YYduo.KkuldongVarietyStore.global.S3Storage.S3StorageService;
 import com.YYduo.KkuldongVarietyStore.domain.member.entity.Member;
-import com.YYduo.KkuldongVarietyStore.domain.member.mapper.MemberMapper;
 import com.YYduo.KkuldongVarietyStore.domain.member.repository.MemberRepository;
-import com.YYduo.KkuldongVarietyStore.exception.CustomException;
-import com.YYduo.KkuldongVarietyStore.exception.ExceptionCode;
 import com.YYduo.KkuldongVarietyStore.global.dto.MultiResponseDto;
 import com.YYduo.KkuldongVarietyStore.global.dto.SingleResponseDto;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -44,15 +41,18 @@ public class DiaryController {
 
     private final DiaryRepository diaryRepository;
 
+    private final S3StorageService s3StorageService;
+
 
 //일기 쓰기
-    @PostMapping
-    public ResponseEntity<SingleResponseDto<DiaryResponseDto>> createDiary(@RequestBody DiaryPostDto diaryPostDto) {
-        Diary diary = diaryService.saveDiary(diaryPostDto);
-        DiaryResponseDto diaryResponseDto = DiaryMapper.INSTANCE.diaryToDiaryResponseDto(diary);
-        SingleResponseDto<DiaryResponseDto> singleResponseDto = new SingleResponseDto<>(diaryResponseDto);
-        return new ResponseEntity<>(singleResponseDto, HttpStatus.CREATED);
-    }
+@PostMapping
+public ResponseEntity<SingleResponseDto<DiaryResponseDto>> createDiary(@RequestBody DiaryPostDto diaryPostDto) throws JsonProcessingException {
+    Diary diary = diaryService.saveDiary(diaryPostDto);
+    DiaryResponseDto diaryResponseDto = DiaryMapper.INSTANCE.diaryToDiaryResponseDto(diary);
+    SingleResponseDto<DiaryResponseDto> singleResponseDto = new SingleResponseDto<>(diaryResponseDto);
+    return new ResponseEntity<>(singleResponseDto, HttpStatus.CREATED);
+}
+
 
 //일기 수정
     @PatchMapping("/{diaryId}")

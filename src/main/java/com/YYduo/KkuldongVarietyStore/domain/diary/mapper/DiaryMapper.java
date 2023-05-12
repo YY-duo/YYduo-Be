@@ -10,6 +10,7 @@ import org.mapstruct.MappingTarget;
 import org.mapstruct.factory.Mappers;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Mapper(componentModel = "spring")
@@ -26,6 +27,8 @@ public interface DiaryMapper {
     DiaryResponseDto diaryToDiaryResponseDto(Diary diary);
 
     void updateDiaryFromDiaryPatchDto(@MappingTarget Diary diary, DiaryPatchDto diaryPatchDto);
+
+
 
 
     List<DiaryResponseDto> diariesToDiaryResponseDtos(List<Diary> diaries);

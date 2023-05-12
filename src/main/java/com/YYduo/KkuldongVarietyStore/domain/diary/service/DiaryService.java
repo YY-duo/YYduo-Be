@@ -16,6 +16,7 @@ import com.YYduo.KkuldongVarietyStore.domain.member.entity.Member;
 import com.YYduo.KkuldongVarietyStore.domain.member.repository.MemberRepository;
 import com.YYduo.KkuldongVarietyStore.exception.CustomException;
 import com.YYduo.KkuldongVarietyStore.exception.ExceptionCode;
+import com.YYduo.KkuldongVarietyStore.global.S3Storage.S3StorageService;
 import com.YYduo.KkuldongVarietyStore.global.dto.MultiResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.mapstruct.Context;
@@ -45,6 +46,8 @@ public class DiaryService {
     private final MemberRepository memberRepository;
     private final HashtagMapper hashtagMapper;
 
+    private final S3StorageService s3StorageService;
+
     public Diary saveDiary(DiaryPostDto diaryPostDto) {
         // Find the member by memberId
         Member member = memberRepository.findById(diaryPostDto.getMemberId())
@@ -53,6 +56,12 @@ public class DiaryService {
         // Convert DiaryPostDto to Diary entity
         Diary diary = DiaryMapper.INSTANCE.diaryPostDtoToDiary(diaryPostDto);
         diary.setMember(member);
+
+        // Set content
+        diary.setContent(diaryPostDto.getContent());
+
+        // Save imageUrls
+        diary.setImageUrls(diaryPostDto.getImageUrls());
 
         List<Hashtag> savedHashtags = new ArrayList<>();
         for (Hashtag hashtag : diaryPostDto.getHashtags()) {
@@ -113,6 +122,15 @@ public Diary updateDiary(Long diaryId, DiaryPatchDto diaryPatchDto) {
 
     // Update the diary's attributes using MapStruct
     DiaryMapper.INSTANCE.updateDiaryFromDiaryPatchDto(diary, diaryPatchDto);
+
+    // Delete existing images from S3
+    if (diaryPatchDto.getImageUrls() != null && !diaryPatchDto.getImageUrls().isEmpty()) {
+        s3StorageService.deleteImages(diary.getImageUrls());
+    }
+
+    // Save imageUrls
+    diary.setImageUrls(diaryPatchDto.getImageUrls());
+
 
     // Process hashtags
     List<Hashtag> savedHashtags = new ArrayList<>();

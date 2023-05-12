@@ -16,4 +16,5 @@ public class DiaryPatchDto {
     private String title;
     private String content;
     private List<Hashtag> hashtags;
+    private List<String> imageUrls;
 }

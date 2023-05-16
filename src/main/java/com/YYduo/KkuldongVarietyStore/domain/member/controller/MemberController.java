@@ -15,7 +15,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import javax.validation.constraints.Positive;
 
 @Slf4j
 @Validated
@@ -81,7 +80,7 @@ public class MemberController {
 
     @PostMapping(value = "/github")
     public ResponseEntity patchGithub(@AuthenticationPrincipal Member auth,
-                                      @Valid @RequestBody GithubPostDto requestBody) {
+                                      @Valid @RequestBody SNSPostDto requestBody) {
 //        requestBody.setId(auth.getId());
 
 
@@ -93,7 +92,7 @@ public class MemberController {
 
     @PostMapping(value = "/instagram")
     public ResponseEntity patchInstagram(@AuthenticationPrincipal Member auth,
-                                         @Valid @RequestBody InstagramPostDto requestBody) {
+                                         @Valid @RequestBody SNSPostDto requestBody) {
 //        requestBody.setId(auth.getId());
 
 
@@ -106,7 +105,7 @@ public class MemberController {
 
     @PostMapping(value = "/twitter")
     public ResponseEntity patchTwitter(@AuthenticationPrincipal Member auth,
-                                      @Valid @RequestBody TwitterPostDto requestBody) {
+                                      @Valid @RequestBody SNSPostDto requestBody) {
 //        requestBody.setId(auth.getId());
 
 

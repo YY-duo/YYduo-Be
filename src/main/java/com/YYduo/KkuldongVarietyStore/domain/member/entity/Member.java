@@ -2,6 +2,7 @@ package com.YYduo.KkuldongVarietyStore.domain.member.entity;
 
 import com.YYduo.KkuldongVarietyStore.domain.comment.entity.Comment;
 import com.YYduo.KkuldongVarietyStore.domain.diary.entity.Diary;
+import com.YYduo.KkuldongVarietyStore.domain.guestbook.entity.Guestbook;
 import com.YYduo.KkuldongVarietyStore.domain.member.dto.MemberPatchDto;
 import com.YYduo.KkuldongVarietyStore.global.audit.Auditable;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
@@ -52,6 +53,12 @@ public class Member extends Auditable {
 
     @ElementCollection(fetch = FetchType.EAGER)
     private List<String> roles = new ArrayList<>();
+
+    @OneToMany(mappedBy = "owner")
+    private List<Guestbook> ownedGuestbooks = new ArrayList<>();
+
+    @OneToMany(mappedBy = "writer")
+    private List<Guestbook> writtenGuestbooks = new ArrayList<>();
 
     @OneToMany(mappedBy = "member")
     @JsonIgnore

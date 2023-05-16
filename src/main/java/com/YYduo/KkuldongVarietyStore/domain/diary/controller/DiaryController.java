@@ -46,7 +46,8 @@ public class DiaryController {
 
 //일기 쓰기
 @PostMapping
-public ResponseEntity<SingleResponseDto<DiaryResponseDto>> createDiary(@RequestBody DiaryPostDto diaryPostDto) throws JsonProcessingException {
+public ResponseEntity<SingleResponseDto<DiaryResponseDto>> createDiary(@AuthenticationPrincipal Member auth, @RequestBody DiaryPostDto diaryPostDto) throws JsonProcessingException {
+    diaryPostDto.setMemberId((auth.getId()));
     Diary diary = diaryService.saveDiary(diaryPostDto);
     DiaryResponseDto diaryResponseDto = DiaryMapper.INSTANCE.diaryToDiaryResponseDto(diary);
     SingleResponseDto<DiaryResponseDto> singleResponseDto = new SingleResponseDto<>(diaryResponseDto);
@@ -57,7 +58,9 @@ public ResponseEntity<SingleResponseDto<DiaryResponseDto>> createDiary(@RequestB
 //일기 수정
     @PatchMapping("/{diaryId}")
     public ResponseEntity<DiaryResponseDto> updateDiary(@PathVariable @Positive Long diaryId,
+                                                        @AuthenticationPrincipal Member auth,
                                                         @RequestBody DiaryPatchDto diaryPatchDto) {
+        diaryPatchDto.setMemberId(auth.getId());
         Diary updatedDiary = diaryService.updateDiary(diaryId, diaryPatchDto);
         DiaryResponseDto diaryResponseDto = DiaryMapper.INSTANCE.diaryToDiaryResponseDto(updatedDiary);
         return new ResponseEntity<>(diaryResponseDto, HttpStatus.OK);

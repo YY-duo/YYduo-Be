@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 
 public enum ExceptionCode {
 
+    NOT_GUESTBOOK_WRITER(HttpStatus.UNAUTHORIZED, "삭제 권한이 없습니다.", null),
 
     NULL_INPUT_REDIRECT_URL(HttpStatus.BAD_REQUEST, "300", "리다이렉트 주소가 존재하지 않습니다."),
 

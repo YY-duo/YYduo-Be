@@ -13,6 +13,8 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class DiaryPatchDto {
+    private Long memberId;
+    private Long id;
     private String title;
     private String content;
     private List<Hashtag> hashtags;

@@ -38,6 +38,15 @@ public class MemberController {
         return new ResponseEntity<>(new SingleResponseDto<>(memberMapper.memberToMemberResponseDto(member)), HttpStatus.CREATED);
     }
 
+    @GetMapping("/memberinfo")
+    public ResponseEntity<?> getMemberinfo(@AuthenticationPrincipal Member auth) {
+
+        Member member =memberService.findVerifiedMember(auth.getId());
+
+        return new ResponseEntity<>(new SingleResponseDto<>(memberMapper.memberToMemberInfoResponseDto(member)), HttpStatus.OK);
+    }
+
+
     //다른 회원의 마이홈 접근
     @GetMapping("/{id}")
     public ResponseEntity<?> getMember(@AuthenticationPrincipal Member auth,@PathVariable Long id) {
@@ -52,7 +61,7 @@ public class MemberController {
 
 
     //내 마이홈 접근
-    @GetMapping("/myhome/{id}")
+    @GetMapping("/myhome")
     public ResponseEntity<?> getMyhome(@AuthenticationPrincipal Member auth) {
 
         Member member = memberService.findVerifiedMember(auth.getId());
@@ -71,7 +80,7 @@ public class MemberController {
     @PatchMapping(value = "/patch")
     public ResponseEntity patchMember(@AuthenticationPrincipal Member auth,
                                       @Valid @RequestBody MemberPatchDto requestBody) {
-//        requestBody.setId(auth.getId());
+        requestBody.setId(auth.getId());
 
         Member member = memberService.updateMember(memberMapper.memberPatchToMember(requestBody));
 
@@ -81,7 +90,7 @@ public class MemberController {
     @PostMapping(value = "/github")
     public ResponseEntity patchGithub(@AuthenticationPrincipal Member auth,
                                       @Valid @RequestBody SNSPostDto requestBody) {
-//        requestBody.setId(auth.getId());
+        requestBody.setId(auth.getId());
 
 
         Member member = memberService.postGithub(memberMapper.memberGithubPostDtoToMember(requestBody));
@@ -93,7 +102,7 @@ public class MemberController {
     @PostMapping(value = "/instagram")
     public ResponseEntity patchInstagram(@AuthenticationPrincipal Member auth,
                                          @Valid @RequestBody SNSPostDto requestBody) {
-//        requestBody.setId(auth.getId());
+        requestBody.setId(auth.getId());
 
 
         Member member = memberService.postInstagram(memberMapper.memberInstagramPostDtoToMember(requestBody));
@@ -106,7 +115,7 @@ public class MemberController {
     @PostMapping(value = "/twitter")
     public ResponseEntity patchTwitter(@AuthenticationPrincipal Member auth,
                                       @Valid @RequestBody SNSPostDto requestBody) {
-//        requestBody.setId(auth.getId());
+        requestBody.setId(auth.getId());
 
 
         Member member = memberService.postTwittwer(memberMapper.memberTwitterPostDtoToMember(requestBody));
@@ -115,39 +124,35 @@ public class MemberController {
 
     }
 
-    @PatchMapping("/instagram/{id}")
-    public ResponseEntity<?> disconnectInstagram(@AuthenticationPrincipal Member auth,@PathVariable Long id) {
-//        requestBody.setId(auth.getId());
+    @PatchMapping("/instagram")
+    public ResponseEntity<?> disconnectInstagram(@AuthenticationPrincipal Member auth) {
 
-        memberService.disconnectInstagram(id);
-
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-    }
-
-    @PatchMapping("/github/{id}")
-    public ResponseEntity<?> disconnectGithub(@AuthenticationPrincipal Member auth,@PathVariable Long id) {
-//        requestBody.setId(auth.getId());
-
-        memberService.disconnectGithub(id);
+        memberService.disconnectInstagram(auth.getId());
 
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    @PatchMapping("/twitter/{id}")
-    public ResponseEntity<?> disconnectTwitter(@AuthenticationPrincipal Member auth,@PathVariable Long id) {
-//        requestBody.setId(auth.getId());
+    @PatchMapping("/github")
+    public ResponseEntity<?> disconnectGithub(@AuthenticationPrincipal Member auth) {
 
-        memberService.disconnectTwitter(id);
+        memberService.disconnectGithub(auth.getId());
+
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @PatchMapping("/twitter")
+    public ResponseEntity<?> disconnectTwitter(@AuthenticationPrincipal Member auth) {
+
+        memberService.disconnectTwitter(auth.getId());
 
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteMember(@AuthenticationPrincipal Member auth,@PathVariable Long id) {
-//        requestBody.setId(auth.getId());
+    @DeleteMapping("/delete")
+    public ResponseEntity<?> deleteMember(@AuthenticationPrincipal Member auth) {
 
-        memberService.deleteMember(id);
+        memberService.deleteMember(auth.getId());
 
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }

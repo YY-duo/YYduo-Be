@@ -19,8 +19,8 @@ public interface MemberMapper {
     @Mapping(source = "newId", target = "twitter")
     Member memberTwitterPostDtoToMember(SNSPostDto requestBody);
 
-
-
+    @Mapping(source = "id", target = "id")
+    MemberInfoResponseDto memberToMemberInfoResponseDto(Member member);
     Member memberToMemberResponseDto(Member member);
 
 }

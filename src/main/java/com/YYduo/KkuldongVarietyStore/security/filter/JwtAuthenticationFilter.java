@@ -73,9 +73,9 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         response.setHeader("Authorization", "Bearer " + accessToken);
 
         // 리프레시 토큰을 HttpOnly 쿠키에 저장
-        String encodedRefreshToken = CookieUtil.base64UrlEncode(refreshToken);
-        Cookie refreshTokenCookie = CookieUtil.createHttpOnlyCookie("Refresh", encodedRefreshToken);
+        Cookie refreshTokenCookie = CookieUtil.createHttpOnlyCookie("Refresh", refreshToken);
         response.addCookie(refreshTokenCookie);
+
 
         this.getSuccessHandler().onAuthenticationSuccess(request, response, authResult);
     }

@@ -9,5 +9,6 @@ import lombok.Setter;
 @NoArgsConstructor
 public class MemberInfoResponseDto {
     private Long id;
+    private int avatar;
     private String nickname;
 }

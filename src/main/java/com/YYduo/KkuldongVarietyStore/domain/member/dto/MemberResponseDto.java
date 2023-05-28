@@ -16,8 +16,6 @@ public class MemberResponseDto {
 
     private String nickname;
 
-    private String password;
-
     private String motto;
 
     private int avatar;

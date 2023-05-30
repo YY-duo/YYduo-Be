@@ -1,0 +1,68 @@
+server:
+  servlet:
+    session:
+      cookie:
+        name: JSESSIONID
+        http-only: false
+        secure: true
+      persistent: true
+
+spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: 123
+            client-secret: 12312414124
+            redirectUri: "http://localhost:8080/login/oauth2/code/google"
+            scope:
+              - profile
+              - email
+          naver:
+            client-id: 123123
+            client-secret: 123123123
+            client-name: Naver
+            authorization-grant-type: authorization_code
+          kakao:
+            client-id: 123123123
+            client-secret: 1414
+            client-name: kakao
+            client-authentication-method: POST
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://${RDS_ENDPOINT}:3306/kkuldong
+    username: ${MYSQL_USERNAME}
+    password: ${MYSQL_PASSWORD}
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+    database: mysql
+
+mail:
+  address:
+    admin: admin@gmail.com
+
+jwt:
+  key: ${JWT_SECRET_KEY}
+  access-token-expiration-minutes: 30
+  refresh-token-expiration-minutes: 420
+logging:
+  level:
+    org.springframework.security: DEBUG
+
+cloud:
+  aws:
+    s3:
+      bucket: yyduo
+    stack.auto: false
+    region.static: ${AWS_REGION}
+    credentials:
+      accessKey: ${AWS_ACCESS_KEY}
+      secretKey: ${AWS_SECRET_ACCESS_KEY}

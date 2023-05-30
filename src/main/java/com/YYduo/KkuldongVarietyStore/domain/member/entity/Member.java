@@ -55,9 +55,11 @@ public class Member extends Auditable {
     private List<String> roles = new ArrayList<>();
 
     @OneToMany(mappedBy = "owner")
+    @JsonManagedReference
     private List<Guestbook> ownedGuestbooks = new ArrayList<>();
 
     @OneToMany(mappedBy = "writer")
+    @JsonManagedReference
     private List<Guestbook> writtenGuestbooks = new ArrayList<>();
 
     @OneToMany(mappedBy = "member")

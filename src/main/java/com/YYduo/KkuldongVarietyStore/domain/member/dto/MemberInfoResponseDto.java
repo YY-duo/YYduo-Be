@@ -7,21 +7,8 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class MemberResponseDto {
-
+public class MemberInfoResponseDto {
     private Long id;
-
-    private String email;
-
-    private String nickname;
-
-    private String motto;
-
     private int avatar;
-
-    private String instagram;
-
-    private String github;
-
-    private String twitter;
+    private String nickname;
 }

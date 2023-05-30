@@ -26,7 +26,7 @@ public class GuestbookController {
         return ResponseEntity.ok(guestbookService.writeGuestbook(guestbookPostDto));
     }
 
-    @PutMapping("/{id}")
+    @PatchMapping("/{id}")
     public ResponseEntity<Guestbook> updateGuestbook(@PathVariable Long ownerId, @PathVariable Long id, @RequestBody GuestbookUpdateDto guestbookUpdateDto) {
         return ResponseEntity.ok(guestbookService.updateGuestbook(id, guestbookUpdateDto));
     }

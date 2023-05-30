@@ -1,6 +1,7 @@
 package com.YYduo.KkuldongVarietyStore.domain.guestbook.entity;
 
 import com.YYduo.KkuldongVarietyStore.domain.member.entity.Member;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,9 +22,11 @@ public class Guestbook {
     private Long id;
 
     @ManyToOne
+    @JsonBackReference
     private Member owner;
 
     @ManyToOne
+    @JsonBackReference
     private Member writer;
 
     private String content;

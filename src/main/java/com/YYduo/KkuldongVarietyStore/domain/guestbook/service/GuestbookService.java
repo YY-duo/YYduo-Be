@@ -31,7 +31,7 @@ public class GuestbookService {
         Member writer = memberRepository.findById(dto.getWriterId()).orElseThrow(() -> new IllegalArgumentException("Writer not found"));
         Member owner = memberRepository.findById(dto.getOwnerId()).orElseThrow(() -> new IllegalArgumentException("Owner not found"));
 
-        Guestbook guestbook = guestbookMapper.toEntity(dto);
+        Guestbook guestbook = guestbookMapper.toGuestbook(dto);
         guestbook.setWriter(writer);
         guestbook.setOwner(owner);
         guestbook.setWriteTime(LocalDateTime.now());

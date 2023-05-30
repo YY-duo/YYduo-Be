@@ -18,7 +18,7 @@ permissions:
   
 env:
   S3_BUCKET_NAME: yyduo-deploy
-  RESOURCE_PATH: ./src/main/resources/application.yaml
+  RESOURCE_PATH: ./src/main/resources/application.yml
   CODE_DEPLOY_APPLICATION_NAME: kkuldong-code-deploy
   CODE_DEPLOY_DEPLOYMENT_GROUP_NAME: kkuldong-server
   

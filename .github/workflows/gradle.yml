@@ -39,17 +39,11 @@ jobs:
         
         # [1]
       - name: Set yaml file 
-        uses: microsoft/variable-substitution@v1
-        with:
-          files: ${{ env.RESOURCE_PATH }} 
-        env:
-          AWS_ACCESS_KEY: ${{ secrets.AWS_ACCESS_KEY }}
-          AWS_REGION: ${{ secrets.AWS_REGION }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          JWT_SECRET_KEY: ${{ secrets.JWT_SECRET_KEY }}
-          MYSQL_PASSWORD: ${{ secrets.MYSQL_PASSWORD }}
-          RDS_ENDPOINT: ${{ secrets.RDS_ENDPOINT }}
-          MYSQL_USERNAME: ${{ secrets.MYSQL_USERNAME }}
+      - run: touch ./src/main/resources/application.yml
+      - run: echo "${{ secrets.APPLICATION }}" > ./src/main/resources/application.yml
+      - run: cat ./src/main/resources/application.yml
+
+
 
       - name: Grant execute permission for gradlew
         run: chmod +x ./gradlew

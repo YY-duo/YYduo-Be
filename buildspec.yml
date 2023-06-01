@@ -7,15 +7,15 @@ phases:
   build:
     commands:
       - echo Build Starting on `date`
-      - cd YYduo-Be
+      - cd kkuldong
       - chmod +x ./gradlew
       - ./gradlew build
   post_build:
     commands:
-      - echo $(basename ./YYduo-Be/build/libs/*.jar)
+      - echo $(basename ./kkuldong/build/libs/*.jar)
 artifacts:
   files:
-    - YYduo-Be/build/libs/*.jar
-    - YYduo-Be/scripts/**
-    - YYduo-Be/appspec.yml
+    - kkuldong/build/libs/*.jar
+    - kkuldong/scripts/**
+    - kkuldong/appspec.yml
   discard-paths: yes

@@ -105,10 +105,11 @@ public class SecurityConfiguration {
     CorsConfigurationSource corsConfigurationSource(){
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowedOriginPatterns(Arrays.asList(
-                "https://127.0.0.1:3000",
+                "https://127.0.0.1:3000/",
+                "https://kkuldong.shop/",
                 "https://main.d3rp8snlcvejh4.amplifyapp.com/",
                 "https://35b3-125-249-161-234.ngrok-free.app/"));  // 추가한 부분
-        configuration.setAllowedMethods(Arrays.asList( "*"));
+        configuration.setAllowedMethods(Arrays.asList("*"));
         configuration.setAllowedHeaders(Arrays.asList("Cookie","Accept","Content-Type", "Origin", "Authorization", "X-Auth-Token", "Access-Control-Allow-Origin"));
         configuration.setExposedHeaders(Arrays.asList("Set-Cookie", "Authorization"));
         configuration.setAllowCredentials(true);

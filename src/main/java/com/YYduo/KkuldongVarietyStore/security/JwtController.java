@@ -53,7 +53,7 @@ public class JwtController {
             updateRefresh.setRefresh(newRefreshToken);
 
             // 리프레시 토큰을 HttpOnly 쿠키에 저장
-            CookieUtil.createHttpOnlyCookie(response, "Refresh", refreshToken, 60 * 60 * 24);
+            CookieUtil.createHttpOnlyCookie(response, "Refresh", newRefreshToken, 60 * 60 * 24);
 
 
             return ResponseEntity.noContent()

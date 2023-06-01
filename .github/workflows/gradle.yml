@@ -39,8 +39,8 @@ jobs:
         
         # [1]
       - name: Set yaml file 
-      - run: touch ./src/main/resources/application.yml
-      - run: echo "${{ secrets.APPLICATION }}" > ./src/main/resources/application.yml
+        run: touch ./src/main/resources/application.yml
+      - run: echo "${{ secrets.APPLICATION }}"
       - run: cat ./src/main/resources/application.yml
 
 

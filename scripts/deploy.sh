@@ -26,4 +26,5 @@ fi
 
 DEPLOY_JAR=$DEPLOY_PATH$JAR_NAME
 echo "> DEPLOY_JAR 배포"    >> /home/ubuntu/kkuldong/deploy.log
+source ~/.bashrc
 sudo nohup java -jar $DEPLOY_JAR >> /home/ubuntu/kkuldong/deploy.log 2>/home/ubuntu/kkuldong/deploy_err.log &

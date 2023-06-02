@@ -70,7 +70,7 @@ public class MemberService {
 
         Member findMember = findVerifiedMember(member.getId());
         Optional.ofNullable(member.getEmail())
-                .ifPresent(email -> findMember.setMotto(email));
+                .ifPresent(email -> findMember.setEmail(email));
         Optional.ofNullable(member.getNickname())
                 .ifPresent(nickname -> findMember.setNickname(nickname));
         Optional.ofNullable(member.getMotto())
@@ -79,6 +79,15 @@ public class MemberService {
                 .ifPresent(bloodType -> findMember.setBloodType(bloodType));
         Optional.ofNullable(member.getBirthday())
                 .ifPresent(birthday -> findMember.setBirthday(birthday));
+
+        return memberRepository.save(findMember);
+
+    }
+
+    public Member updateAvatar(Member member) {
+        Member findMember = findVerifiedMember(member.getId());
+        Optional.ofNullable(member.getAvatar())
+                .ifPresent(avatar -> findMember.setAvatar(avatar));
 
         return memberRepository.save(findMember);
 

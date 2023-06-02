@@ -12,6 +12,8 @@ public interface MemberMapper {
 
     Member memberPatchToMember(MemberPatchDto requestBody);
 
+    Member avatarPatchToMemver(AvatarPatchDto requestBody);
+
     @Mapping(source = "newId", target = "github")
     Member memberGithubPostDtoToMember(SNSPostDto requestBody);
     @Mapping(source = "newId", target = "instagram")
@@ -21,6 +23,6 @@ public interface MemberMapper {
 
     @Mapping(source = "id", target = "id")
     MemberInfoResponseDto memberToMemberInfoResponseDto(Member member);
-    Member memberToMemberResponseDto(Member member);
+    MemberResponseDto memberToMemberResponseDto(Member member);
 
 }

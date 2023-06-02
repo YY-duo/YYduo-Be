@@ -87,6 +87,15 @@ public class MemberController {
         return new ResponseEntity<>(new SingleResponseDto<>(memberMapper.memberToMemberResponseDto(member)), HttpStatus.OK);
     }
 
+    @PatchMapping(value = "/patchavatar")
+    public ResponseEntity patchAvatar(@AuthenticationPrincipal Member auth,
+                                      @Valid @RequestBody AvatarPatchDto requestBody) {
+        requestBody.setId(auth.getId());
+
+        Member member = memberService.updateAvatar(memberMapper.avatarPatchToMemver(requestBody));
+
+        return new ResponseEntity<>(new SingleResponseDto<>(memberMapper.memberToMemberResponseDto(member)), HttpStatus.OK);
+    }
     @PostMapping(value = "/github")
     public ResponseEntity patchGithub(@AuthenticationPrincipal Member auth,
                                       @Valid @RequestBody SNSPostDto requestBody) {

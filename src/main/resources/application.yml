@@ -62,7 +62,7 @@ cloud:
     s3:
       bucket: yyduo
     stack.auto: false
-    region.static: ${AWS_REGION}
+    region.static: ${REGION}
     credentials:
-      accessKey: ${AWS_ACCESS_KEY}
-      secretKey: ${AWS_SECRET_ACCESS_KEY}
+      accessKey: ${ACCESS_KEY}
+      secretKey: ${SECRET_ACCESS_KEY}

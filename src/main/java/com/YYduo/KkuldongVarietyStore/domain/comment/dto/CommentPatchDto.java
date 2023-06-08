@@ -9,7 +9,6 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class CommentPatchDto {
-        private Long id;
         private String content;
 }
 

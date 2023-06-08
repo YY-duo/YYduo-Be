@@ -4,6 +4,8 @@ import lombok.Getter;
 import org.springframework.http.HttpStatus;
 
 public enum ExceptionCode {
+
+    UNAUTHORIZED_ACCESS(HttpStatus.UNAUTHORIZED, "권한이 없습니다.", null),
     REFRESH_TOKEN_NOT_FOUND(HttpStatus.UNAUTHORIZED, "리프레시 토큰이 발견되지 않았습니다. 다시 로그인해주세요.", null),
     NOT_GUESTBOOK_WRITER(HttpStatus.UNAUTHORIZED, "삭제 권한이 없습니다.", null),
 

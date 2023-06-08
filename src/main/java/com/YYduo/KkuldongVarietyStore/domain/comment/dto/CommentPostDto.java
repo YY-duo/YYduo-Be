@@ -8,8 +8,9 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class CommentPostDto {
-    private Long diaryId;
-    private Long memberId;
+    private long diaryId;
+
+    private long memberId;
+
     private String content;
-    private String author;
 }

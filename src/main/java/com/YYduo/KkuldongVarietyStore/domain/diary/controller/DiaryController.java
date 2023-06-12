@@ -61,6 +61,7 @@ public ResponseEntity<SingleResponseDto<DiaryResponseDto>> createDiary(@Authenti
                                                         @AuthenticationPrincipal Member auth,
                                                         @RequestBody DiaryPatchDto diaryPatchDto) {
         diaryPatchDto.setMemberId(auth.getId());
+        diaryPatchDto.setId(diaryId);
         Diary updatedDiary = diaryService.updateDiary(diaryId, diaryPatchDto);
         DiaryResponseDto diaryResponseDto = DiaryMapper.INSTANCE.diaryToDiaryResponseDto(updatedDiary);
         return new ResponseEntity<>(diaryResponseDto, HttpStatus.OK);

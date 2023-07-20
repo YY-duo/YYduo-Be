@@ -80,6 +80,7 @@ public class MemberController {
     @PatchMapping(value = "/patch")
     public ResponseEntity patchMember(@AuthenticationPrincipal Member auth,
                                       @Valid @RequestBody MemberPatchDto requestBody) {
+
         requestBody.setId(auth.getId());
 
         Member member = memberService.updateMember(memberMapper.memberPatchToMember(requestBody));
